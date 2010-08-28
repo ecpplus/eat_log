@@ -22,7 +22,7 @@
       <ul class="tweets">
         <% tweets.each_with_index do |tweet, i| -%>
           <li>
-          <div class="user-icon"><%= link_to(image_tag(tweet.user.try(:profile_image_url), :height => '24px'), {:controller => :user, :action => :show, :id => tweet.user.screen_name}, :class => 'no-border', :alt => tweet.user.try(:view_name), :title => tweet.user.try(:view_name)) %></div>
+          <div class="user-icon"><%= link_to(image_tag(tweet.user.try(:profile_image_url), :height => '24px'), {:controller => :user, :action => :show, :id => tweet.user.try(:screen_name)}, :class => 'no-border', :alt => tweet.user.try(:view_name), :title => tweet.user.try(:view_name)) %></div>
             <% 
               concat(auto_link(h(tweet.text), :urls, :target => '_blank')) 
               if logged_in? && current_user == @user 
