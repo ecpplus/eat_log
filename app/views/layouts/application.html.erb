@@ -3,9 +3,9 @@
   <head>
     <title><%= @title || '食べたものログ' %></title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css"> 
-    <%= stylesheet_link_tag 'base' %>
-    <%#= javascript_include_tag 'shadedborder' %>
+    <!--<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css">-->
+    <%= stylesheet_link_tag 'reset-min.css', 'fonts-min.css', 'html5-reset-1.4.css', 'base' %>
+    <%= javascript_include_tag 'jquery-1.4.2.min' %>
   </head>
   
   <body>
@@ -13,14 +13,17 @@
       <h1><a href="/" class="no-border"><%= image_tag 'logo.png' %></a></h1>
     </div>
 
+
     <div id="wrapper">
+      <% if flash[:notice] %><p class="flash-message flash-notice"><%= flash[:notice] %></p><% end %>
+      <% if flash[:error] %><p class="flash-message flash-error"><%= flash[:error] %></p><% end %>
       <%= yield %>
     </div>
   
     <div id="footer">
       <ul>
         <li><%= link_to 'ヘルプ', :controller => 'about', :action => 'help' %></li>
-        <li><%= link_to '利用規約', :controller => 'about', :action => 'term' %></li>
+        <!--<li><%= link_to '利用規約', :controller => 'about', :action => 'term' %></li>-->
         <li><a href="http://ecpplus.net/" target="_blank">運営者情報</a></li>
       <ul>
       <!--<p><%= image_tag 'icon/ic_book.gif' %> 追加したい機能</p>-->

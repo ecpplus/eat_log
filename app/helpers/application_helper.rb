@@ -44,7 +44,7 @@ module ApplicationHelper
   # author  : chu
   def hot_word(words)
     frequency_sum = words.sum(&:frequency)
-    summary_font_size = words.size * 50
+    summary_font_size = words.size * 20
     words.map do |word|
       "<span style='font-size:#{100 + summary_font_size * word.frequency / frequency_sum}%'>#{h(word.name)}</span>"
     end.join(', ')
@@ -54,10 +54,7 @@ module ApplicationHelper
   # args    : str
   # author  : chu
   # comment : 
-  def link_tweet(str)
-    # 本文はリンクつけるだけ
-    body = auto_link(h(str), :urls, :target => '_blank')
-
+  def tweet_images(str)
     # 画像があったら、インラインで表示させる
     images = []
     [
@@ -72,8 +69,18 @@ module ApplicationHelper
         images << link_to(image_tag(image_href), href, :target => '_blank')
       end 
     end 
-    [body, images.join('&nbsp;')].join('<br />')
+
+    images.join('&nbsp;')
   end
 
+  # ユーザを検索するフォーム
+  def user_search_form
+    %q(
+      <form action="#" onsubmit='location.href="/" + document.getElementById("screen_name").value; return false;'>
+        <input type="text" id="screen_name" name="screen_name" size="20" />
+        <input type="button" value="ユーザを検索する"><br/>
+      </form>
+    )
+  end
 
 end

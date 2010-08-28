@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>eat log admin</title>
+    
+    <%= stylesheet_link_tag 'reset-min.css', 'fonts-min.css', 'html5-reset-1.4.css', 'admin' %>
+    <!--[if IE]>
+    <%= javascript_include_tag 'html5.js' %>
+    <![endif]-->
+    <%= javascript_include_tag :defaults %>
+    <%= active_scaffold_includes %>
+  </head>
+  <body>
+    <div id="header">
+      <ul id="menu" class="clearfix">
+        <li><%= link_to 'NGword一覧',     :controller => '/admin/black_word' %></li>
+        <li><%= link_to '問題作成',     :controller => '/admin/question', :action => 'new' %></li>
+        <li><%= link_to 'ギフト券一覧', :controller => '/admin/gift_card' %></li>
+        <li><%= link_to 'ギフト券作成', :controller => '/admin/gift_card', :action => 'new' %></li>
+        <li><%= link_to 'ログアウト',   :controller => '/admin/question' %></li>
+      </ul>
+      <div class>
+    </div>
+    <% if flash[:notice] -%>
+      <div class="notice"><%=h flash[:notice] %></div>
+    <% end -%>
+    <% if flash[:error] -%>
+      <div class="error"><%=h flash[:error] %></div>
+    <% end -%>
+    <%= yield %>
+  </body>
+</html>

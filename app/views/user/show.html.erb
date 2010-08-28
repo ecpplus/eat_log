@@ -1,23 +1,19 @@
 <% @page_title = "#{h(@user.name)}(@#{h(@user.screen_name)}) さんの食べたものログ" -%>
 
-  <!--
-<div class="curve-04">
-<div class="curve-head"><div></div></div>
--->
-
-
   <div id="sidebar">
-    <% if logged_in? -%>
-      <p><%= link_to "#{current_user.view_name} としてログイン中", :controller => 'user', :action => 'home' %></p>
-    <% else %>
-      <p><%= link_to 'ログイン', :controller => 'auth', :action => 'oauth' %></p>
-    <% end %>
+    <div id="account_info">
+      <% if logged_in? -%>
+        <p><%= link_to "#{current_user.view_name} としてログイン中", :controller => 'user', :action => 'home' %><br /><%= link_to 'ログアウト', :controller => 'auth', :action => 'logout' %></p>
+      <% else %>
+        <p><%= link_to 'ログイン', :controller => 'auth', :action => 'oauth' %></p>
+      <% end %>
+    </div>
 
-    <h3>プロフィール <%= link_to image_tag('twitter.png'), "http://twitter.com/#{@user.screen_name}", :target => '_blank', :class => 'no-border' %></h3>
+    <h3>プロフィール <%= link_to image_tag('icon/twitter.png'), "http://twitter.com/#{@user.screen_name}", :target => '_blank', :class => 'no-border' %></h3>
 
-    <p align="right"><img id="profile_image" src="<%= @user.profile_image_url.sub(/_normal\./, '_normal.') %>" /></p>
-    <p align="right">名前 : <%=h @user.view_name %></p>
-    <p><%=h auto_link(@user.description, :urls, :target => '_blank') %></p>
+    <p><img id="profile_image" src="<%= @user.profile_image_url.sub(/_normal\./, '_normal.') %>" /></p>
+    <p>名前 : <%=h @user.view_name %></p>
+    <p class="text"><%=h auto_link(@user.description, :urls, :target => '_blank') %></p>
 
     <h3>過去に食べたもの</h3>
     <ul>
@@ -34,7 +30,7 @@
   <div id="content">
 
     <h2 style="margin-top:0;">
-      <%=h @user.name %>(<a href="http://twitter.com/<%=h @user.screen_name %>">@<%=h @user.screen_name %></a>)さんが<%= @month_start.strftime('%Y年%m月') %>に食べたもの
+      <%=h @user.name %>(@<%=h @user.screen_name %>)さんが<%= @month_start.strftime('%Y年%m月') %>に食べたもの
     </h2>
 
     <% @tweets.group_by{|t| t.created_at.day}.each_with_index do |value, i| -%>
@@ -44,11 +40,48 @@
         <div class="date <%= cwday_class(tweets[0].created_at.to_datetime.cwday) %>"><%=h en_day(day) %><br /><%= cwday(tweets[0].created_at.to_datetime.cwday) %></div>
         <ul class="tweets">
           <% tweets.each_with_index do |tweet, i| -%>
-            <li><div class="time"><%=h tweet.created_at.strftime('%H:%M') %></div><%= link_tweet(tweet.text) %></li>
+            <li>
+              <div class="time"><%=h tweet.created_at.strftime('%H:%M') %></div>
+              <% 
+                concat(auto_link(h(tweet.text), :urls, :target => '_blank')) 
+                if logged_in? && current_user == @user 
+                  concat("&nbsp;")
+                  concat(link_to(image_tag('icon/trash.gif', :alt => 'この Tweet を削除します。', :title => 'この Tweet を削除します。'), {:controller => :tweet, :action => :destroy, :id => tweet}, :method => :delete, :class => 'no-border', :confirm => "削除すると復元できません。\n削除してもよろしいですか？", :title => 'この Tweet を削除します。'))
+                end
+                str = tweet_images(tweet.text)
+                if str.present? 
+                  concat("<br />")
+                  concat(str)
+                end
+              %>
+            </li>
           <% end -%>
         </ul>
       </div>
     <% end -%>
 
+    <div class="paging_navi">
+      <%=
+        links = []
+        unless @month_start < @user.created_at
+          links << (link_to("&laquo; 前の月", :month => @month_start.prev_month.strftime('%Y%m')))
+        end
+        unless Time.now < @month_finish
+          links << (link_to("次の月 &raquo;", :month => @month_start.prev_month.strftime('%Y%m')))
+        end
+        links.join("&nbsp;&nbsp;&nbsp;")
+      %>
+    </div>
+
   </div>
 
+  <div id="adjuster" style="height: 1000px;">&nbsp;</div>
+
+  <script type="text/javascript">
+      $(window).load(function () {
+            var sidebar_height = document.getElementById('sidebar').offsetHeight;
+            var content_height = document.getElementById('content').offsetHeight;
+            var height = Math.max(sidebar_height, content_height);
+            document.getElementById('adjuster').style.height = height + 'px';
+       });
+  </script>

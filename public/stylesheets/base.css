@@ -16,6 +16,7 @@ body {
   /*background-color:#9AE4E8;*/
   margin:0;
   padding:0;
+  margin-bottom:30px;
   height:100%;
 }
 
@@ -67,10 +68,11 @@ h1 {
 }
 
 h2 {
-  border-bottom: 1px dotted #ccc;
-  width: 660px;
+  border-bottom: 1px dotted #bb0;
+  width: auto;
   margin-top: 20px;
   font-size: large;
+  font-weight: bold;
 }
 
 h3 {
@@ -104,7 +106,8 @@ h3 {
 
 #content {
   width : 680px;
-  position: relative;
+  position: absolute;
+  left: 20px;
 }
 
 table, td, th {
@@ -124,6 +127,12 @@ td {
 .content li {
   margin:2px 10px;
 }
+
+/* hot food */
+#account {
+  padding-top: 10px;
+}
+
 
 /* tweets */
 .day_tweets {
@@ -173,6 +182,7 @@ td {
   margin-left: 50px;
   line-height: normal;
   position: relative;
+  line-height: 180%;
 }
 
 .day_tweets .tweets .time{
@@ -180,12 +190,16 @@ td {
   left: -45px
 }
 
+.paging_navi {
+  text-align:center;
+}
 
 /* sidebar */
 #sidebar {
   width: 220px;
   position: absolute;
   left: 740px;
+  text-align: right;
 }
 
 #sidebar h3 {
@@ -193,10 +207,14 @@ td {
   font-size: large;
   font-weight: bold;
   margin-top: 20px;
+  text-align: right;
 }
 
 #sidebar ul {
-  text-align: right;
+}
+
+#sidebar .text {
+  text-align: left;
 }
 
 
@@ -218,4 +236,21 @@ td {
   float: right;
   padding-left: 20px;
   /*list-style-image: url(/images/icon/rmn_hort.gif);*/
+}
+
+/* flash messages */
+.flash-message {
+  text-align: center;
+  width: auto;
+  margin-bottom: 20px;
+}
+
+.flash-notice {
+  background: #cfc;
+  border: 1px solid #9f0;
+}
+
+.flash-error {
+  background: #fcc;
+  border: 1px solid #f90;
 }

@@ -10,6 +10,9 @@ class UserFood < ActiveRecord::Base
       text = tweet.text
       text.gsub!(/@[a-zA-Z0-9]/, ' ')
       text.gsub!(%r{(https?://|www\.)[^\s<]+}x, ' ')
+      BlackWord.all.each do |black_word|
+        text.gsub!("#{black_word.word}", ' ')
+      end
 
       # Yahoo! API に投げる
       host = "jlp.yahooapis.jp"

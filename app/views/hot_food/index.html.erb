@@ -1,15 +1,18 @@
-<% if flash[:error] -%>
-  <div style="background-color: #fee; color:red; border:1px solid red; pading:15px; margin-bottom:20px;"><%= flash[:error] %></div>
-<% end -%>
+<h2 style="margin-top:0;">ログイン or ユーザ検索</h2>
+<div id="account">
+  <p style="float: left; padding-right: 20px;"><%= link_to 'Twitter OAuth認証でログインする', :controller => 'auth', :action => 'oauth' %></p>
+  <%= user_search_form %>
+</div>
 
-<h2 style="margin-top:0;"><%= image_tag "icon/kb_jump.gif" %> 今日みんなによく食べられているもの</h2>
+<h2>今日よく食べられているもの</h2>
 <%= hot_word(@daily_hot_foods) -%>
 
-<h2><%= image_tag "icon/kb_nemu.gif" %> 今週みんなによく食べられているもの</h2>
+<h2>今週よく食べられているもの</h2>
 <%= hot_word(@weekly_hot_foods) -%>
 
-<h2><%= image_tag "icon/g_obj.gif" %> 使い方など</h2>
-<p><a href="http://twitter.com/eat_log">@eat_log</a> をフォローして10分くらいすると、http://eat.ecpplus.net/user/{スクリーン名} に食べたものが出るようになります(フォローした時点からのデータです)。</p>
+<h2>これはなに？</h2>
+<p>Twitter で食べたものに関するつぶやきのログを取るアプリケーションです。</p>
+<p><a href="http://twitter.com/eat_log">@eat_log</a> をフォローして10分くらいすると、http://eat.ecpplus.net/{スクリーン名} に食べたものが出るようになります(フォローした時点からのデータです)。</p>
 </p>#eat のハッシュタグをつけたつぶやきを記録します。 [→ <a href="http://usy.jp/twitter/index.php?%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E3%82%BF%E3%82%B0" target="_blank">ハッシュタグとは？</a> (外部サイトに飛びます) ]</p>
-<p></p>
+<p>詳しくは、<%= link_to 'ヘルプ', :controller => 'about', :action => 'help' %>をご覧ください。</p>
 

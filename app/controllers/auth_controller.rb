@@ -67,8 +67,12 @@ class AuthController < ApplicationController
       if @user_info['screen_name']
         user = User.by_credential(@user_info)
         self.current_user = user
+        flash[:notice] = 'ログインしました。'
         if params[:backto]
           redirect_to params[:backto]
+          return
+        else
+          redirect_to home_path
           return
         end
       else
@@ -83,6 +87,12 @@ class AuthController < ApplicationController
       redirect_to :action => :index
       return
     end
+  end
+
+  def logout
+    logout_killing_session!
+    flash[:notice] = 'ログアウトしました。'
+    redirect_to root_path
   end
 
 end
