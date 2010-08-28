@@ -5,7 +5,7 @@
       <% if logged_in? -%>
         <p><%= link_to "#{current_user.view_name} としてログイン中", :controller => 'user', :action => 'home' %><br /><%= link_to 'ログアウト', :controller => 'auth', :action => 'logout' %></p>
       <% else %>
-        <p><%= link_to 'ログイン', :controller => 'auth', :action => 'oauth' %></p>
+        <p><%= link_to 'Twitter OAuth認証でログインする', :controller => 'auth', :action => 'oauth' %></p>
       <% end %>
     </div>
 
