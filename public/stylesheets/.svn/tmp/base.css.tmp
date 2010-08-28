@@ -1,0 +1,91 @@
+/*
+#my-border { padding:20px; width:30%; margin:200px auto; color:#fff; }
+#my-border, #my-border .sb-inner { background:#444 url(/images/grad.png) repeat-x; }
+*/
+
+body {
+  text-align:center;
+  font:.75em/1.5 'Lucida Grande', sans-serif;
+  color:#333;
+  background-color:#9AE4E8;
+  margin:0;
+  padding:0;
+  height:100%;
+}
+
+
+p {
+  line-height: 200%; 
+}
+
+h1 {
+  display:inline;
+}
+
+#header {
+  margin: 10px auto;
+  width: 700px;
+}
+
+#header p {
+  display:inline;
+  font-size:70%;
+  width:auto;
+}
+
+h2 {
+  border-bottom: 1px dotted #ccc;
+  width: 660px;
+  margin-top: 20px;
+}
+
+h3 {
+  border-bottom: 1px solid #99f;
+  border-left:   2px solid #99f;
+  padding-left:  8px;
+  margin-top: 8px;
+  width: 500;
+}
+
+#wrapper{
+  padding:20px;
+  /*background-color: #DDFFDD;*/
+  margin: 10px auto;
+  width: 700px;
+}
+
+
+table, td, th {
+  border: 1px solid #999;
+}
+
+table {
+  margin:20px 0px;
+  width : 100%;
+}
+
+td {
+  padding: 5px;
+}
+
+#footer {
+  border-top: #ccc dotted 1px; 
+  padding:10px 20px;
+  margin: 10px auto;
+  width: 660px;
+}
+
+#footer ul{
+  margin-left: 50px;
+  list-style-image: url(/images/icon/rmn_hort.gif);
+}
+
+#footer li{
+  text-align: left;
+  list-style-image: url(/images/icon/rmn_hort.gif);
+}
+
+.content li {
+  margin:2px 10px;
+}
+

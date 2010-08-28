@@ -1,0 +1,14 @@
+<% if flash[:error] -%>
+  <div style="background-color: #fee; color:red; border:1px solid red; pading:15px; margin-bottom:20px;"><%= flash[:error] %></div>
+<% end -%>
+
+<h2 style="margin-top:0;"><%= image_tag "icon/kb_jump.gif" %> 今日みんなによく食べられているもの</h2>
+<%= hot_word(@daily_hot_foods) -%>
+
+<h2><%= image_tag "icon/kb_nemu.gif" %> 今週みんなによく食べられているもの</h2>
+<%= hot_word(@weekly_hot_foods) -%>
+
+<h2><%= image_tag "icon/g_obj.gif" %> 使い方など</h2>
+<p><a href="http://twitter.com/eat_log">@eat_log</a> をフォローして10分くらいすると、http://eat.ecpplus.net/user/{スクリーン名} に食べたものが出るようになります(フォローした時点からのデータです)。「食べた、食った、たべた」等の単語があるつぶやきを残しているだけのものです。単語の抽出は、Yahoo!のキーフレーズ抽出APIを使っています。</p>
+<p>もしかしたら、みんなによく食べられているものはパブリックタイムラインからとったほうがいいのかも。</p>
+

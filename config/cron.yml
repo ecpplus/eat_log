@@ -1,0 +1,20 @@
+fetch_tweet:
+  :interval: 1.minutes
+  :command: 'Tweet.fetch_timeline'
+
+analyze_tweet:
+  :interval: 5.minutes
+  :command: 'Tweet.analyze_phrase'
+
+daily_hot_food:
+  :interval: 15.minutes
+  :command: 'DailyHotFood.generate'
+
+weekly_hot_food:
+  :interval: 24.hours
+  :command: 'WeeklyHotFood.generate'
+
+follow_users:
+  :interval: 5.minutes
+  :command: 'User.follow_users'
+

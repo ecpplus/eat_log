@@ -1,0 +1,43 @@
+10
+
+dir
+50
+svn+ssh://chu@ecpplus.net/srv/svn/twitter_eat_log/app/views
+svn+ssh://chu@ecpplus.net/srv/svn/twitter_eat_log
+
+
+
+2010-01-19T08:15:29.717750Z
+48
+chu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+254ab2e0-e636-11de-b2e3-c537b6586f4d
+
+layouts
+dir
+
+auth
+dir
+
+hot_food
+dir
+
+help
+dir
+
+user
+dir
+
