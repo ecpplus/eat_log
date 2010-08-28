@@ -145,6 +145,16 @@ td {
 .day_tweets_first {
 }
 
+.day_tweets .user-icon {
+  position: absolute;
+  left : -40px;
+}
+
+.day_tweets .user-view-name {
+  color: #999;
+}
+
+
 .day_tweets .date {
   position: absolute;
   left : -60px;
