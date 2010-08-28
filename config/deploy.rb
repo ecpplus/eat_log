@@ -29,7 +29,7 @@ namespace :deploy do
 
   desc "Start application server"
   task :start, :roles => :app, :except => {:no_release => true} do
-    run "cd #{current_path} && unicorn_rails -c config/unicorn.conf -D -E #{rails_env}"
+    run "cd #{current_path} && /usr/local/bin/unicorn_rails -c config/unicorn.conf -D -E #{rails_env}"
     sleep(5)
   end
 

@@ -135,6 +135,13 @@ td {
 
 
 /* tweets */
+.no-tweet {
+  text-align: center;
+  margin: 20px auto 40px;
+  font-weight: normal;
+  font-size: large;
+}
+
 .day_tweets {
   margin-left: 70px;
   margin-top: 20px;
@@ -153,7 +160,6 @@ td {
 .day_tweets .user-view-name {
   color: #999;
 }
-
 
 .day_tweets .date {
   position: absolute;

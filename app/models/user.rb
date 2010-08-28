@@ -29,8 +29,6 @@ class User < ActiveRecord::Base
     }
     _opt.merge!(opt)
 
-    p _opt
-
     UserHotFood.find(:all, _opt)
   end
 
