@@ -39,6 +39,8 @@ ActionController::Routing::Routes.draw do |map|
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing or commenting them out if you're using named routes and resources.
   map.root :controller => "hot_food"
+  map.connect 'user/home', :controller => 'user', :action => 'home'
+  map.connect 'user/:id/:month', :controller => 'user', :action => 'show'
   map.connect 'user/:id', :controller => 'user', :action => 'show'
 
   map.connect ':controller/:action/:id'

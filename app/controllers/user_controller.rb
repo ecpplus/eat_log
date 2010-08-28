@@ -1,4 +1,8 @@
 class UserController < ApplicationController
+  def home
+    redirect_to :action => :show, :id => current_user.screen_name
+  end
+
   def show
     @user = User.find_by_screen_name(params[:id])
     unless @user
@@ -8,8 +12,13 @@ class UserController < ApplicationController
     end
 
     if params[:month].to_s =~ /\d{6}/
-      @month_start  = DateTime.new(params[:month].to_s[0..3], params[:month].to_s[4..5], 1)
-      @month_finish = @month_start.end_of_month
+      begin
+        @month_start  = DateTime.new(params[:month].to_s[0..3].to_i, params[:month].to_s[4..5].to_i, 1)
+        @month_finish = @month_start.end_of_month
+      rescue ArgumentError
+        @month_start  = DateTime.now.beginning_of_month
+        @month_finish = @month_start.end_of_month
+      end
     else
       @month_start  = DateTime.now.beginning_of_month
       @month_finish = @month_start.end_of_month
@@ -26,10 +35,6 @@ class UserController < ApplicationController
     )
 
     # 過去の、お気に入りの食べ物を取得
-    @favorite_foods = UserHotFood.find(
-      :all,
-      :conditions => ['user_id = ?', @user.twitter_id],
-      :order => 'frequency DESC'
-    )
+    @favorite_foods = @user.favorite_foods(:limit => 50)
   end
 end

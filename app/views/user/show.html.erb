@@ -5,31 +5,50 @@
 <div class="curve-head"><div></div></div>
 -->
 
-  <div class="content">
 
-  <h2 style="margin-top:0;">
-    <img id="profile_image" src="<%= @user.profile_image_url %>" />
-    <%=h @user.name %>(<a href="http://twitter.com/<%=h @user.screen_name %>">@<%=h @user.screen_name %></a>)さんが<%= @month_start.strftime('%Y年%m月') %>に食べたもの
-  </h2>
+  <div id="sidebar">
+    <% if logged_in? -%>
+      <p><%= link_to "#{current_user.view_name} としてログイン中", :controller => 'user', :action => 'home' %></p>
+    <% else %>
+      <p><%= link_to 'ログイン', :controller => 'auth', :action => 'oauth' %></p>
+    <% end %>
 
-  <% @tweets.group_by{|t| t.created_at.day}.each do |day, tweets| -%>
-    <h3><p><%=h day %>日(<%= cwday(tweets[0].created_at.to_datetime.cwday) %>)</p></h3>
+    <h3>プロフィール <%= link_to image_tag('twitter.png'), "http://twitter.com/#{@user.screen_name}", :target => '_blank', :class => 'no-border' %></h3>
+
+    <p align="right"><img id="profile_image" src="<%= @user.profile_image_url.sub(/_normal\./, '_normal.') %>" /></p>
+    <p align="right">名前 : <%=h @user.view_name %></p>
+    <p><%=h auto_link(@user.description, :urls, :target => '_blank') %></p>
+
+    <h3>過去に食べたもの</h3>
     <ul>
-      <% tweets.each_with_index do |tweet, i| -%>
-        <li><p><%=h tweet.created_at.strftime('%H:%M') %> <%= auto_link(h(tweet.text)) %></p></li>
-      <% end -%>
+      <% month_options(@user).each do |value| %>
+        <li><%= link_to value[0], :action => 'show', :id => @user.screen_name, :month => value[1] %></li>
+      <% end %>
     </ul>
-  <% end -%>
-  
-  <h2 style="margin-top:20px;"><%= image_tag "icon/chr2_siro.gif" %> よく食べていそうなもの</h2>
-  <p><%= hot_word(@favorite_foods) -%></p>
+
+    <h3>よく食べているもの</h3>
+    <p><%= hot_word(@favorite_foods) -%></p>
 
   </div>
 
-  <!--
-<div class="curve-bottom"><div></div></div>
-</div>
--->
+  <div id="content">
 
+    <h2 style="margin-top:0;">
+      <%=h @user.name %>(<a href="http://twitter.com/<%=h @user.screen_name %>">@<%=h @user.screen_name %></a>)さんが<%= @month_start.strftime('%Y年%m月') %>に食べたもの
+    </h2>
 
+    <% @tweets.group_by{|t| t.created_at.day}.each_with_index do |value, i| -%>
+      <% day, tweets = value[0], value[1] %>
+      <div class="day_tweets <%= 'day_tweets_first' if i.zero? %>">
+        <!--<div class="day"></div>-->
+        <div class="date <%= cwday_class(tweets[0].created_at.to_datetime.cwday) %>"><%=h en_day(day) %><br /><%= cwday(tweets[0].created_at.to_datetime.cwday) %></div>
+        <ul class="tweets">
+          <% tweets.each_with_index do |tweet, i| -%>
+            <li><div class="time"><%=h tweet.created_at.strftime('%H:%M') %></div><%= link_tweet(tweet.text) %></li>
+          <% end -%>
+        </ul>
+      </div>
+    <% end -%>
+
+  </div>
 

@@ -1,41 +1,56 @@
 require 'rubygems'
 require 'twitter'
 class User < ActiveRecord::Base
-  EAT_LOG_SCREEN_NAME = 'eat_log'
-  EAT_LOG_ACCESS_TOKEN = '95916471-2cK7RAUhb1oENH3oGmmJIKEaofNVHjhbMgmD3uU'
-  EAT_LOG_ACCESS_TOKEN_SECRET = 'jnSa1yUhRBAIGadW5kwn6VydSuiDIeHztJqNtoBvqY'
-
   has_many :tweets, :primary_key => :twitter_id
+  set_primary_key :twitter_id
+  validates_presence_of   :screen_name
+  validates_uniqueness_of :twitter_id, :screen_name
+
+  # name    : カスタムバリデーション
+  # comment : - twitter_id は必ず指定されている必要がある
+  # author  : chu
+  def validate
+    if twitter_id.blank? || twitter_id.zero?
+      self.errors.add :twitter_id, 'が設定されていません。'
+    end
+  end
+
+  # name    : 表示する時の名前
+  # comment : ちゅう(@ecpplus) と出る
+  # author  : chu
+  def view_name
+    "#{name} (@#{screen_name})"
+  end
+
+  def favorite_foods(opt)
+    _opt = {
+      :conditions => ['user_id = ?', twitter_id],
+      :order => 'frequency DESC'
+    }
+    _opt.merge!(opt)
+
+    p _opt
+
+    UserHotFood.find(:all, _opt)
+  end
 
   class << self
-    # name    : まだフォローしていないユーザをフォローする
+    # name    : Twitterから取得した情報をもとにユーザを作成
     # args    : 
     # comment : 
     # author  : chu
-    def follow_users
-      oauth = Twitter::OAuth.new(Consumer::CONSUMER_KEY, Consumer::CONSUMER_SECRET)
-      oauth.authorize_from_access(EAT_LOG_ACCESS_TOKEN, EAT_LOG_ACCESS_TOKEN_SECRET)
-      client = Twitter::Base.new(oauth)
-
-      # フォロワーがDBにあるか、を調べる。
-      # ないユーザは作成し、またフォローしていないユーザはフォローする
-      User.transaction do 
-        client.followers.each do |follower|
-          user = User.find_or_initialize_by_twitter_id(follower.id)
-
-          user.name = follower.name
-          user.screen_name = follower.screen_name
-          user.description = follower.description
-          user.profile_image_url = follower.profile_image_url
-
-          unless follower.following
-            client.friendship_create(follower.screen_name)
-            user.followed = true
-          end
-          user.save!
-        end
-      end
-      nil
-    end
+    def by_credential(credential)
+      user = self.find_or_initialize_by_twitter_id(credential["id"])
+      user.twitter_id        = credential["id"]
+      user.screen_name       = credential["screen_name"]
+      user.name              = credential["name"]
+      #user.description       = credential["description"]
+      user.profile_image_url = credential["profile_image_url"]
+      #user.url               = credential["url"]
+      #user.location          = credential["location"]
+      user.save!
+      user
+    end 
   end
+
 end

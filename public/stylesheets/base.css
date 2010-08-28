@@ -3,6 +3,12 @@
 #my-border, #my-border .sb-inner { background:#444 url(/images/grad.png) repeat-x; }
 */
 
+
+html {
+  background-image:url(/images/bg.png);
+  background-repeat:repeat-x repeat-y;
+}
+
 body {
   text-align:center;
   font:.75em/1.5 'Lucida Grande', sans-serif;
@@ -11,6 +17,33 @@ body {
   margin:0;
   padding:0;
   height:100%;
+}
+
+/* link */
+a {
+  color: rgb(92,167,228);
+  color: rgba(65,117,160,0.8);
+  text-decoration: none;
+  border-bottom: dotted 1px rgba(65,117,160,0.8);
+}
+
+a:hover {
+  color: rgb(65,117,160);
+  text-decoration: none;
+  border-bottom: dotted 1px rgb(65,117,160);
+  background: rgb(200,235,255);
+  background: rgba(65,117,160,0.2);
+}
+
+a:visited {
+  /*color: rgb(228,167,228);*/
+  color: rgb(160,117,160);
+  color: rgba(140,102,140,0.8);
+  border-bottom: dotted 1px rgba(120,117,160,0.8);
+}
+
+a.no-border {
+  border-bottom: none;
 }
 
 
@@ -37,23 +70,42 @@ h2 {
   border-bottom: 1px dotted #ccc;
   width: 660px;
   margin-top: 20px;
+  font-size: large;
 }
 
 h3 {
+  /*
   border-bottom: 1px solid #99f;
   border-left:   2px solid #99f;
+  */
+  border-bottom: 1px dotted #ccc;
   padding-left:  8px;
   margin-top: 8px;
-  width: 500;
+  margin-bottom: 8px;
 }
 
 #wrapper{
   padding:20px;
   /*background-color: #DDFFDD;*/
+  /*margin: 0px auto;*/
   margin: 10px auto;
-  width: 700px;
+  text-align: left;
+  clear: both;
+  width: 960px;
+  background: #fff;
+  -moz-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+  -khtml-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+  -webkit-box-shadow: 0px 0px 8px rgba(0,0,0,0.3);   
+  position: relative;
 }
 
+#content {
+  width : 680px;
+  position: relative;
+}
 
 table, td, th {
   border: 1px solid #999;
@@ -68,24 +120,102 @@ td {
   padding: 5px;
 }
 
-#footer {
-  border-top: #ccc dotted 1px; 
-  padding:10px 20px;
-  margin: 10px auto;
-  width: 660px;
-}
-
-#footer ul{
-  margin-left: 50px;
-  list-style-image: url(/images/icon/rmn_hort.gif);
-}
-
-#footer li{
-  text-align: left;
-  list-style-image: url(/images/icon/rmn_hort.gif);
-}
 
 .content li {
   margin:2px 10px;
 }
 
+/* tweets */
+.day_tweets {
+  margin-left: 70px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.day_tweets_first {
+}
+
+.day_tweets .date {
+  position: absolute;
+  left : -60px;
+  text-align: center;
+  padding: 0;
+  font-size: 13px;
+  font-weight: bold;
+  width: 40px;
+  height: 40px;
+}
+
+.day_tweets .weekday{
+  background: #aaaaaa;
+  color: #dddddd;
+}
+
+.day_tweets .saturday{
+  background: #6498cc;
+  color: #bbd5f1;
+}
+
+.day_tweets .sunday{
+  background: #ca607a;
+  color: #fab0ca;
+}
+
+.day_tweets .tweets {
+  padding: 0;
+}
+
+.day_tweets .tweets li{
+  padding: 0;
+  padding-bottom: 10px;
+  margin: 0;
+  margin-left: 50px;
+  line-height: normal;
+  position: relative;
+}
+
+.day_tweets .tweets .time{
+  position: absolute;
+  left: -45px
+}
+
+
+/* sidebar */
+#sidebar {
+  width: 220px;
+  position: absolute;
+  left: 740px;
+}
+
+#sidebar h3 {
+  text-align: right;
+  font-size: large;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+#sidebar ul {
+  text-align: right;
+}
+
+
+/* footer */
+#footer {
+  margin: 10px auto;
+  width: 960px;
+  text-align: center;
+}
+
+#footer ul{
+  margin: 0 auto;
+  padding: 0 auto;
+  /*list-style-image: url(/images/icon/rmn_hort.gif);*/
+}
+
+#footer li{
+  text-align: left;
+  float: right;
+  padding-left: 20px;
+  /*list-style-image: url(/images/icon/rmn_hort.gif);*/
+}

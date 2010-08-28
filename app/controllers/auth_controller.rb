@@ -1,6 +1,5 @@
 class AuthController < ApplicationController
 
-=begin
   def index
     oauth = Twitter::OAuth.new(Consumer::CONSUMER_KEY, Consumer::CONSUMER_SECRET)
     oauth.authorize_from_access(session[:access_token], session[:access_token_secret])
@@ -39,10 +38,10 @@ class AuthController < ApplicationController
     session[:access_token] = access_token.token
     session[:access_token_secret] = access_token.secret
 
-    p "session[:request_token] : #{session[:request_token]}"
-    p "session[:request_token_secret] : #{session[:request_token_secret]}"
-    p "session[:access_token] : #{session[:access_token]}"
-    p "session[:access_token_secret] : #{session[:access_token_secret]}"
+    #p "session[:request_token] : #{session[:request_token]}"
+    #p "session[:request_token_secret] : #{session[:request_token_secret]}"
+    #p "session[:access_token] : #{session[:access_token]}"
+    #p "session[:access_token_secret] : #{session[:access_token_secret]}"
 
     #request_token = OAuth::RequestToken.new(
     #  consumer,
@@ -64,13 +63,20 @@ class AuthController < ApplicationController
     case response
     when Net::HTTPSuccess
       @user_info = JSON.parse(response.body)
-      p @user_info
-      unless @user_info['screen_name']
+      #p @user_info
+      if @user_info['screen_name']
+        user = User.by_credential(@user_info)
+        self.current_user = user
+        if params[:backto]
+          redirect_to params[:backto]
+          return
+        end
+      else
         flash[:notice] = "Authentication failed"
         redirect_to :action => :index
         return
       end
-      redirect_to :action => :index
+      redirect_to root_path
     else
       RAILS_DEFAULT_LOGGER.error "Failed to get user info via OAuth"
       flash[:notice] = "Authentication failed"
@@ -78,6 +84,5 @@ class AuthController < ApplicationController
       return
     end
   end
-=end
 
 end

@@ -6,9 +6,14 @@ class UserFood < ActiveRecord::Base
     # comment : 
     # author  : chu
     def create_from_tweet(tweet)
+      # text で余分なものを取り除く。
+      text = tweet.text
+      text.gsub!(/@[a-zA-Z0-9]/, ' ')
+      text.gsub!(%r{(https?://|www\.)[^\s<]+}x, ' ')
+
       # Yahoo! API に投げる
       host = "jlp.yahooapis.jp"
-      path = "/KeyphraseService/V1/extract?appid=#{YAHOO_API_ID}&output=json&sentence=#{URI.encode(tweet.text)}&filter=9"
+      path = "/KeyphraseService/V1/extract?appid=#{YAHOO_API_ID}&output=json&sentence=#{URI.encode(text)}&filter=9"
 
       begin
         Net::HTTP.start(host, 80) do |http|

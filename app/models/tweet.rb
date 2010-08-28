@@ -16,20 +16,19 @@ class Tweet < ActiveRecord::Base
   end
 
   class << self
-    # name    : まだフォローしていないユーザをフォローする
+    # name    : フォロワーのTLを取得してDBにいれる
     # args    : 
     # comment : 
     # author  : chu
     def fetch_timeline
       oauth = Twitter::OAuth.new(Consumer::CONSUMER_KEY, Consumer::CONSUMER_SECRET)
-      oauth.authorize_from_access(User::EAT_LOG_ACCESS_TOKEN, User::EAT_LOG_ACCESS_TOKEN_SECRET)
+      oauth.authorize_from_access(EAT_LOG_ACCESS_TOKEN, EAT_LOG_ACCESS_TOKEN_SECRET)
       client = Twitter::Base.new(oauth)
 
       # フォロワーがDBにあるか、を調べる。
       # ないユーザは作成し、またフォローしていないユーザはフォローする
       last_tweet_id = AppConfig.get(:last_tweet_id) rescue 1
       timeline = client.friends_timeline(:count => 200, :since_id => last_tweet_id)
-      #timeline = client.user_timeline(:count => 200, :since_id => last_tweet_id)
       timeline.each do |post|
         if eat?(post.text)
           tweet = Tweet.create!(
@@ -54,11 +53,12 @@ class Tweet < ActiveRecord::Base
     #           NG : 食べたい 食べない 食べません 食べなかった 食べちゃってない 食べてない
     # author  : chu
     def eat?(str)
-      ok_pattern = /((食|た)べ(た|ます|よう|る|ました|ちゃった|てます|ています|てる)|(食|く)っ(た|てる|ている|ちゃった|てます|ています)|(食|しょく)(している|してる|す))/
-      ng_pattern = /(食|た)べ(たい|ない|ません|なかった|ちゃってない|てない)/
+      #ok_pattern = /((食|た)べ(た|ます|よう|る|ました|ちゃった|てます|ています|てる)|(食|く)っ(た|てる|ている|ちゃった|てます|ています)|(食|しょく)(している|してる|す))/
+      #ng_pattern = /(食|た)べ(たい|ない|ません|なかった|ちゃってない|てない)/
       # RT, QT, XT などがあったらその後は無視する。
       match_str = str.sub(/^(.*?)\sRT.*/, '\1')
-      match_str =~ ok_pattern && str !~ ng_pattern
+      #match_str =~ ok_pattern && str !~ ng_pattern
+      match_str =~ /#eat/
     end
 
     # name    : まだ解析していないTweetを解析する

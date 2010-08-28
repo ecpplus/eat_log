@@ -16,5 +16,5 @@ weekly_hot_food:
 
 follow_users:
   :interval: 5.minutes
-  :command: 'User.follow_users'
+  :command: 'Follower.follow_users'
 

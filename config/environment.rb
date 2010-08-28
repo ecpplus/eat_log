@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.4' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -47,4 +47,7 @@ require 'rubygems'
 require 'oauth'
 require 'json'
 
-YAHOO_API_ID = 'YbB9FEuxg64M0dqn3wKcSTIfaxi9Y_bDoMhhtSMMcHbVkkXXY0XQv0KvnLyUWvi97OdM4LsclQ--'
+YAHOO_API_ID = 'YbB9FEuxg64M0dqn3wKcSTIfaxi9Y_bDoMhhtSMMcHbVkkXXY0XQv0KvnLyUWvi97OdM4LsclQ--'.freeze
+EAT_LOG_SCREEN_NAME = 'eat_log'.freeze
+EAT_LOG_ACCESS_TOKEN = '95916471-2cK7RAUhb1oENH3oGmmJIKEaofNVHjhbMgmD3uU'.freeze
+EAT_LOG_ACCESS_TOKEN_SECRET = 'jnSa1yUhRBAIGadW5kwn6VydSuiDIeHztJqNtoBvqY'.freeze
