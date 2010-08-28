@@ -1,43 +1,0 @@
-10
-
-dir
-50
-svn+ssh://chu@ecpplus.net/srv/svn/twitter_eat_log/vendor/plugins/rspec_on_rails/spec_resources/views
-svn+ssh://chu@ecpplus.net/srv/svn/twitter_eat_log
-
-
-
-2009-12-11T09:22:10.098182Z
-3
-chu
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-254ab2e0-e636-11de-b2e3-c537b6586f4d
-
-view_spec
-dir
-
-tag_spec
-dir
-
-rjs_spec
-dir
-
-render_spec
-dir
-
-controller_spec
-dir
-
