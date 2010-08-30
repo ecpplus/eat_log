@@ -15,7 +15,7 @@ delete_user_food:
   :command: 'BlackWord.delete_user_food'
 
 weekly_hot_food:
-  :interval: 24.hours
+  :interval: 4.hours
   :command: 'WeeklyHotFood.generate'
 
 follow_users:
