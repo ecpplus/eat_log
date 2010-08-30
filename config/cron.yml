@@ -10,6 +10,10 @@ daily_hot_food:
   :interval: 15.minutes
   :command: 'DailyHotFood.generate'
 
+delete_user_food:
+  :interval: 1.hours
+  :command: 'BlackWord.delete_user_food'
+
 weekly_hot_food:
   :interval: 24.hours
   :command: 'WeeklyHotFood.generate'
