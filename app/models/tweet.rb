@@ -3,6 +3,7 @@ require 'json'
 require 'net/http'
 class Tweet < ActiveRecord::Base
   belongs_to :user, :primary_key => :twitter_id 
+  validates_uniqueness_of :twitter_post_id
 
   # name    : 形態素解析する 
   # comment : 
@@ -31,7 +32,7 @@ class Tweet < ActiveRecord::Base
       timeline = client.friends_timeline(:count => 200, :since_id => last_tweet_id)
       timeline.each do |post|
         if eat?(post.text)
-          tweet = Tweet.create!(
+          tweet = Tweet.create(
             :twitter_post_id => post.id,
             :text => post.text,
             :user_id => post.user.id,
