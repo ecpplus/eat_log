@@ -1,0 +1,55 @@
+<h2 style="margin-top:0;">ログイン or ユーザ検索</h2>
+<div id="account">
+  <p style="float: left; padding-right: 20px;"><%= link_to 'Twitter OAuth認証でログインする', :controller => 'auth', :action => 'oauth' %></p>
+  <%= user_search_form %>
+</div>
+
+<% if false %>
+<h2>今日よく食べられているもの</h2>
+<%= hot_word(@daily_hot_foods) -%>
+<% end %>
+
+<h2>今週よく食べられているもの</h2>
+<%= hot_word(@weekly_hot_foods) -%>
+
+<h2>最近食べられたもの</h2>
+
+<div id="recent_tweets">
+  <% @recent_tweets.group_by{|t| t.created_at.day}.each_with_index do |value, i| -%>
+    <% day, tweets = value[0], value[1] %>
+    <div class="day_tweets <%= 'day_tweets_first' if i.zero? %>">
+      <div class="date <%= cwday_class(tweets[0].created_at.to_datetime.cwday) %>"><%=h en_day(day) %><br /><%= cwday(tweets[0].created_at.to_datetime.cwday) %></div>
+      <ul class="tweets">
+        <% tweets.each_with_index do |tweet, i| -%>
+          <li>
+          <div class="user-icon"><%= link_to(image_tag(tweet.user.try(:profile_image_url), :height => '24px'), {:controller => :user, :action => :show, :id => tweet.user.try(:screen_name)}, :class => 'no-border', :alt => tweet.user.try(:view_name), :title => tweet.user.try(:view_name)) %></div>
+            <% 
+              concat(auto_link(h(tweet.text), :urls, :target => '_blank')) 
+              if logged_in? && current_user == @user 
+                concat("&nbsp;")
+                concat(link_to(image_tag('icon/trash.gif', :alt => 'この Tweet を削除します。', :title => 'この Tweet を削除します。'), {:controller => :tweet, :action => :destroy, :id => tweet}, :method => :delete, :class => 'no-border', :confirm => "削除すると復元できません。\n削除してもよろしいですか？", :title => 'この Tweet を削除します。'))
+              end
+              
+              concat(tweet.created_at.strftime('<span class="user-view-name">&nbsp;[%H:%M&nbsp;by&nbsp;'))
+              concat(link_to tweet.user.try(:view_name), :controller => :user, :action => :show, :id => tweet.user.try(:screen_name))
+              concat(']</span>')
+              
+              str = tweet_images(tweet.text)
+              if str.present? 
+                concat("<br />")
+                concat(str)
+              end
+            %>
+          </li>
+        <% end -%>
+      </ul>
+    </div>
+  <% end -%>
+</div>
+
+<h2>これはなに？</h2>
+<p>Twitter で食べたものに関するつぶやきのログを取るアプリケーションです。</p>
+<p><a href="http://twitter.com/eat_log">@eat_log</a> をフォローして10分くらいすると、http://eat.ecpplus.net/{スクリーン名} に食べたものが出るようになります(フォローした時点からのデータです)。</p>
+</p>#eat のハッシュタグをつけたつぶやきを記録します。 [→ <a href="http://usy.jp/twitter/index.php?%E3%83%8F%E3%83%83%E3%82%B7%E3%83%A5%E3%82%BF%E3%82%B0" target="_blank">ハッシュタグとは？</a> (外部サイトに飛びます) ]</p>
+<p>詳しくは、<%= link_to 'ヘルプ', :controller => 'about', :action => 'help' %>をご覧ください。</p>
+

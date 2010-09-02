@@ -1,0 +1,2 @@
+module HotFoodHelper
+end
