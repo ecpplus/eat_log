@@ -1,0 +1,6 @@
+.svn/
+.DS_Store
+/config/database.yml
+/config/environment.rb
+/config/unicorn.conf
+/config/deploy.rb
