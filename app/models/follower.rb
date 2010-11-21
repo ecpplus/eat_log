@@ -7,7 +7,7 @@ class Follower < ActiveRecord::Base
     # comment : 
     # author  : chu
     def follow_users
-      oauth = Twitter::OAuth.new(Consumer::CONSUMER_KEY, Consumer::CONSUMER_SECRET)
+      oauth = Twitter::OAuth.new(CONSUMER_KEY, CONSUMER_SECRET)
       oauth.authorize_from_access(EAT_LOG_ACCESS_TOKEN, EAT_LOG_ACCESS_TOKEN_SECRET)
       client = Twitter::Base.new(oauth)
 
