@@ -1,12 +1,8 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-require 'twitter'
-
+# -*- coding: utf-8 -*-
+require Rails.root.to_s + '/lib/authenticated_system'
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
-  filter_parameter_logging :password
-
+  protect_from_forgery
   include AuthenticatedSystem
 
   protected
@@ -30,6 +26,4 @@ class ApplicationController < ActionController::Base
     # twitter.comで認証する
     redirect_to request_token.authorize_url
   end 
-
-
 end

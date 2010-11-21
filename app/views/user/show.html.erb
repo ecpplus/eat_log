@@ -46,13 +46,13 @@
                 <% 
                   concat(auto_link(h(tweet.text), :urls, :target => '_blank')) 
                   if logged_in? && current_user == @user 
-                    concat("&nbsp;")
+                    safe_concat("&nbsp;")
                     concat(link_to(image_tag('icon/trash.gif', :alt => 'この Tweet を削除します。', :title => 'この Tweet を削除します。'), {:controller => :tweet, :action => :destroy, :id => tweet}, :method => :delete, :class => 'no-border', :confirm => "削除すると復元できません。\n削除してもよろしいですか？", :title => 'この Tweet を削除します。'))
                   end
                   str = tweet_images(tweet.text)
                   if str.present? 
-                    concat("<br />")
-                    concat(str)
+                    safe_concat("<br />")
+                    safe_concat(str)
                   end
                 %>
               </li>
@@ -68,12 +68,12 @@
       <%=
         links = []
         unless @month_start < @user.created_at
-          links << (link_to("&laquo; 前の月", :month => @month_start.prev_month.strftime('%Y%m')))
+          links << (link_to(raw("&laquo; 前の月"), :month => @month_start.prev_month.strftime('%Y%m')))
         end
         unless Time.now < @month_finish
-          links << (link_to("次の月 &raquo;", :month => @month_start.next_month.strftime('%Y%m')))
+          links << (link_to(raw("次の月 &raquo;"), :month => @month_start.next_month.strftime('%Y%m')))
         end
-        links.join("&nbsp;&nbsp;&nbsp;")
+        raw links.join("&nbsp;&nbsp;&nbsp;")
       %>
     </div>
 

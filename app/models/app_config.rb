@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class AppConfig < ActiveRecord::Base
   class << self
     # name    : キーの値を読み出す。

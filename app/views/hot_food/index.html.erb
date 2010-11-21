@@ -26,18 +26,18 @@
             <% 
               concat(auto_link(h(tweet.text), :urls, :target => '_blank')) 
               if logged_in? && current_user == @user 
-                concat("&nbsp;")
+                safe_concat("&nbsp;")
                 concat(link_to(image_tag('icon/trash.gif', :alt => 'この Tweet を削除します。', :title => 'この Tweet を削除します。'), {:controller => :tweet, :action => :destroy, :id => tweet}, :method => :delete, :class => 'no-border', :confirm => "削除すると復元できません。\n削除してもよろしいですか？", :title => 'この Tweet を削除します。'))
               end
               
-              concat(tweet.created_at.strftime('<span class="user-view-name">&nbsp;[%H:%M&nbsp;by&nbsp;'))
+              safe_concat(tweet.created_at.strftime('<span class="user-view-name">&nbsp;[%H:%M&nbsp;by&nbsp;'))
               concat(link_to tweet.user.try(:view_name), :controller => :user, :action => :show, :id => tweet.user.try(:screen_name))
-              concat(']</span>')
+              safe_concat(']</span>')
               
               str = tweet_images(tweet.text)
               if str.present? 
-                concat("<br />")
-                concat(str)
+                safe_concat("<br />")
+                safe_concat(str)
               end
             %>
           </li>

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module UserHelper
   def month_options(user)
     date = user.created_at.beginning_of_month

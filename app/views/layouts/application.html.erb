@@ -1,11 +1,12 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
     <title><%= @title || '食べたものログ' %></title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <!--<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.8.0r4/build/reset/reset-min.css">-->
     <%= stylesheet_link_tag 'reset-min.css', 'fonts-min.css', 'html5-reset-1.4.css', 'base' %>
     <%= javascript_include_tag 'jquery-1.4.2.min' %>
+    <%= csrf_meta_tag %>
   </head>
   
   <body>
@@ -49,3 +50,4 @@
 
   </body>
 </html>
+

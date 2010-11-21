@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+require Rails.root.to_s + '/lib/hot_food_generate'
 class WeeklyHotFood < ActiveRecord::Base
   include HotFoodGenerate
 

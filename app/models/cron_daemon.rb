@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class CronDaemon < ActiveRecord::Base
   class << self
     # name    : 全てのタスクのおおもとになる

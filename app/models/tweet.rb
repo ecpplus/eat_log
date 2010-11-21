@@ -1,4 +1,5 @@
-require 'twitter'
+# -*- coding: utf-8 -*-
+#require 'twitter'
 require 'json'
 require 'net/http'
 class Tweet < ActiveRecord::Base

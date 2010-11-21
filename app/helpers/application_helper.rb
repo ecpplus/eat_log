@@ -1,6 +1,5 @@
-# Methods added to this helper will be available to all templates in the application.
+# -*- coding: utf-8 -*-
 module ApplicationHelper
-
   # 曜日を出す
   def cwday(cwday_number)
     #str = %w(月 火 水 木 金 土 日)[cwday_number - 1]
@@ -45,9 +44,9 @@ module ApplicationHelper
   def hot_word(words)
     frequency_sum = words.sum(&:frequency)
     summary_font_size = words.size * 20
-    words.map do |word|
-      "<span style='font-size:#{100 + summary_font_size * word.frequency / frequency_sum}%'>#{h(word.name)}</span>"
-    end.join(', ')
+    raw(words.map do |word|
+       "<span style='font-size:#{100 + summary_font_size * word.frequency / frequency_sum}%'>#{h(word.name)}</span>"
+    end.join(', '))
   end
 
   # name    : リンクはったり、外部画像呼び出したりする
@@ -75,12 +74,11 @@ module ApplicationHelper
 
   # ユーザを検索するフォーム
   def user_search_form
-    %q(
+    raw %q(
       <form action="#" onsubmit='location.href="/" + document.getElementById("screen_name").value; return false;'>
         <input type="text" id="screen_name" name="screen_name" size="20" />
         <input type="button" value="ユーザを検索する"><br/>
       </form>
     )
   end
-
 end

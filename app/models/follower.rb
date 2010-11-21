@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Follower < ActiveRecord::Base
 
   class << self

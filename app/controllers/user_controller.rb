@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class UserController < ApplicationController
   def home
     redirect_to :action => :show, :id => current_user.screen_name
