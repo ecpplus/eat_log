@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Admin::AdminController < ApplicationController
   layout 'admin'
   before_filter :admin_login_required, :except => [:login, :logout]
