@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+require Rails.root.to_s + '/lib/batch_lock'
 class CronDaemon < ActiveRecord::Base
   class << self
     # name    : 全てのタスクのおおもとになる
