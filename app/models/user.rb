@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class User < ActiveRecord::Base
-  has_many :tweets, :primary_key => :twitter_id
+  has_many :tweets #, :primary_key => 'twitter_id'
   set_primary_key :twitter_id
   validates_presence_of   :screen_name
   validates_uniqueness_of :twitter_id, :screen_name

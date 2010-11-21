@@ -3,7 +3,7 @@
 require 'json'
 require 'net/http'
 class Tweet < ActiveRecord::Base
-  belongs_to :user, :primary_key => :twitter_id 
+  belongs_to :user #, :primary_key => 'twitter_id'
   validates_uniqueness_of :twitter_post_id
 
   # name    : 形態素解析する 
