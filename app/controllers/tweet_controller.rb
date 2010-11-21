@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class TweetController < ApplicationController
   before_filter :login_required
   verify :method => :delete, :only => :destroy
