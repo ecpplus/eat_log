@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-#require 'rubygems'
-#require 'twitter'
 class User < ActiveRecord::Base
   has_many :tweets, :primary_key => :twitter_id
   set_primary_key :twitter_id

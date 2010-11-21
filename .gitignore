@@ -1,4 +1,6 @@
-.bundle
-db/*.sqlite3
-log/*.log
-tmp/**/*
+.svn/
+.DS_Store
+/config/database.yml
+/config/environment.rb
+/config/unicorn.conf
+/config/deploy.rb
