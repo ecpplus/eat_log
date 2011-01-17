@@ -23,9 +23,18 @@ class Tweet < ActiveRecord::Base
     # comment : 
     # author  : chu
     def fetch_timeline
-      oauth = Twitter::OAuth.new(Consumer::CONSUMER_KEY, Consumer::CONSUMER_SECRET)
-      oauth.authorize_from_access(EAT_LOG_ACCESS_TOKEN, EAT_LOG_ACCESS_TOKEN_SECRET)
-      client = Twitter::Base.new(oauth)
+      Twitter.configure do |config|
+        config.consumer_key       = Consumer::CONSUMER_KEY
+        config.consumer_secret    = Consumer::CONSUMER_SECRET
+        config.oauth_token        = EAT_LOG_ACCESS_TOKEN
+        config.oauth_token_secret = EAT_LOG_ACCESS_TOKEN_SECRET
+      end
+      
+
+      #oauth = Twitter::OAuth.new(Consumer::CONSUMER_KEY, Consumer::CONSUMER_SECRET)
+      #oauth.authorize_from_access(EAT_LOG_ACCESS_TOKEN, EAT_LOG_ACCESS_TOKEN_SECRET)
+      #client = Twitter::Base.new(oauth)
+      client = Twitter::Client.new
 
       # フォロワーがDBにあるか、を調べる。
       # ないユーザは作成し、またフォローしていないユーザはフォローする
