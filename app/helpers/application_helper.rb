@@ -60,10 +60,6 @@ module ApplicationHelper
       {
         :url_regexp   => %r|(http://twitpic.com/)([a-zA-Z0-9]+)|,
         :image_regexp => '\1show/thumb/\2'
-      },
-      {
-        :url_regexp   => %r|(http://t.co/)([a-zA-Z0-9]+)|,
-        :image_regexp => 'http://twitpic.com/show/thumb/\2'
       }
     ].each do |service|
       str.gsub(service[:url_regexp]) do
