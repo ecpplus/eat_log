@@ -1,0 +1,2 @@
+module Admin::BlackWordsHelper
+end

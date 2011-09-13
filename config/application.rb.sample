@@ -53,3 +53,6 @@ SITE            = 'http://twitter.com'.freeze
 EAT_LOG_SCREEN_NAME = 'CHANGE THIS'.freeze
 EAT_LOG_ACCESS_TOKEN = 'CHANGE THIS'.freeze
 EAT_LOG_ACCESS_TOKEN_SECRET = 'CHANGE THIS'.freeze
+
+ADMINPAGE_LOGIN  = 'admin'.freeze
+ADMINPAGE_PASSWD = 'admin'.freeze

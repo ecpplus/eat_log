@@ -1,5 +1,6 @@
 EatLog::Application.routes.draw do
   resources :black_words
+  resources :tweets, :only => :destroy
 
   root :to => "hot_food#index"
 
@@ -7,13 +8,14 @@ EatLog::Application.routes.draw do
   match 'home', :to => 'user#home', :as => 'home'
 
   scope :module => 'admin' do
-    match 'admin/admin/:action/:id', :to => 'admin'
-    match 'admin/black_word/:action/:id', :to => 'black_word'
+    match 'admin/admin/:action(/:id)', :to => 'admin'
+    resources :black_words
+    #match 'admin/black_word/:action(/:id)', :to => 'black_word'
   end
   
 
   match 'auth/:action(/:id)', :to => 'auth'
-  match 'tweet/:action(/:id)', :to => 'tweet'
+  #match 'tweet/:action(/:id)', :to => 'tweet'
   match 'about/:action(/:id)', :to => 'about'
 
   match ':id/:month', :to => 'user#show'

@@ -26,7 +26,7 @@
       <div class="error"><%=h flash[:error] %></div>
     <% end -%>
 
-    <% form_for :admin, :url => {:action => 'login'} do |f| %>
+    <%= form_for :admin, :url => {:action => 'login'} do |f| %>
       <table>
         <tr>
           <th>ログインID</th>

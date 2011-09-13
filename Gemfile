@@ -33,3 +33,8 @@ gem 'capistrano'
 gem 'twitter'
 gem 'oauth'
 gem 'rails_autolink'
+
+gem 'sass'
+gem 'coffee-script'
+gem 'uglifier'
+gem 'jquery-rails'

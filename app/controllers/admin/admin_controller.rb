@@ -2,14 +2,10 @@
 class Admin::AdminController < ApplicationController
   layout 'admin'
   before_filter :admin_login_required, :except => [:login, :logout]
-  skip_before_filter :check_mobile?
-
-  USER     = 'admin'.freeze
-  PASSWORD = 'zVRRt1X9sl'.freeze
 
   def login
     if request.post?
-      if params[:admin][:login] == USER && params[:admin][:password] == PASSWORD
+      if params[:admin][:login] == ADMINPAGE_LOGIN && params[:admin][:password] == ADMINPAGE_PASSWD
         session[:admin] = true
         flash[:notice] = 'ログインしました。'
         redirect_to :controller => 'admin/black_word'
