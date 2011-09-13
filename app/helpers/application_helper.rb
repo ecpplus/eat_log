@@ -60,12 +60,16 @@ module ApplicationHelper
       {
         :url_regexp   => %r|(http://twitpic.com/)([a-zA-Z0-9]+)|,
         :image_regexp => '\1show/thumb/\2'
+      },
+      {
+        :url_regexp   => %r{(http://.+\.(png|jpg|jpeg))},
+        :image_regexp => '\1'
       }
     ].each do |service|
       str.gsub(service[:url_regexp]) do
         href = $&
         image_href = href.sub(service[:url_regexp], service[:image_regexp])
-        images << link_to(image_tag(image_href), href, :target => '_blank')
+        images << link_to(image_tag(image_href, :width => 150), href, :target => '_blank')
       end 
     end 
 

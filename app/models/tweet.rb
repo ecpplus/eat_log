@@ -2,6 +2,7 @@
 #require 'twitter'
 require 'json'
 require 'net/http'
+require 'image_url'
 class Tweet < ActiveRecord::Base
   belongs_to :user #, :primary_key => 'twitter_id'
   validates_uniqueness_of :twitter_post_id
@@ -44,12 +45,19 @@ class Tweet < ActiveRecord::Base
         
         if eat?(post.text) 
           text = post.text
+
+          # expand t.co
           if text =~ %r|http://t\.co/|
             tco_urls = text.scan(%r|http://t\.co/\w+|).uniq
             original_urls = Twitter.resolve(tco_urls).values
             tco_urls.each_with_index do |tco_url, i|
               text.gsub!(tco_url, original_urls[i])
             end
+          end
+
+          # expand instagr.am
+          text.scan(%r|http://instagr.am/p/.+?/|).each do |instagram_url|
+            text.gsub!(instagram_url, ImageUrl.instagram(instagram_url))
           end
 
           tweet = Tweet.create(
