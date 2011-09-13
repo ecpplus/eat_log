@@ -55,11 +55,6 @@ class Tweet < ActiveRecord::Base
             end
           end
 
-          # expand instagr.am
-          text.scan(%r|http://instagr.am/p/.+?/|).each do |instagram_url|
-            text.gsub!(instagram_url, ImageUrl.instagram(instagram_url))
-          end
-
           tweet = Tweet.create(
             :twitter_post_id => post.id,
             :text            => text,

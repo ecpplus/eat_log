@@ -58,18 +58,32 @@ module ApplicationHelper
     images = []
     [
       {
+        # raw image url
+        :url_regexp   => %r{(http://.+\.(png|jpg|jpeg))},
+        :image_regexp => '\1',
+        :height       => 150
+      },
+      {
+        # Twitpic
         :url_regexp   => %r|(http://twitpic.com/)([a-zA-Z0-9]+)|,
         :image_regexp => '\1show/thumb/\2'
       },
       {
-        :url_regexp   => %r{(http://.+\.(png|jpg|jpeg))},
-        :image_regexp => '\1'
+        # yfrog
+        :url_regexp   => %r|(http://yfrog.com/[a-zA-Z0-9]+)|,
+        :image_regexp => '\1:iphone',
+        :height       => 150
+      },
+      {
+        # instagram
+        :url_regexp   => %r|(http://instagr.am/p/.+?/)|,
+        :image_regexp => '\1media/?size=t',
       }
     ].each do |service|
       str.gsub(service[:url_regexp]) do
         href = $&
         image_href = href.sub(service[:url_regexp], service[:image_regexp])
-        images << link_to(image_tag(image_href, :width => 150), href, :target => '_blank')
+        images << link_to(image_tag(image_href, :height => service[:height]), href, :target => '_blank')
       end 
     end 
 
