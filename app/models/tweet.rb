@@ -39,14 +39,24 @@ class Tweet < ActiveRecord::Base
       # フォロワーがDBにあるか、を調べる。
       # ないユーザは作成し、またフォローしていないユーザはフォローする
       last_tweet_id = AppConfig.get(:last_tweet_id) rescue 1
-      timeline = client.friends_timeline(:count => 200, :since_id => last_tweet_id)
+      timeline = client.home_timeline(:count => 200, :since_id => last_tweet_id)
       timeline.each do |post|
-        if eat?(post.text)
+        
+        if eat?(post.text) 
+          if post.text =~ %r|http://t\.co/|
+            text = post.text
+            tco_urls = text.scan(%r|http://t\.co/\w+|).uniq
+            original_urls = Twitter.resolve(tco_urls).values
+            tco_urls.each_with_index do |tco_url, i|
+              text.gsub!(tco_url, original_urls[i])
+            end
+          end
+
           tweet = Tweet.create(
             :twitter_post_id => post.id,
-            :text => post.text,
-            :user_id => post.user.id,
-            :created_at => post.created_at
+            :text            => text,
+            :user_id         => post.user.id,
+            :created_at      => post.created_at
           )
         end
         #p timeline.id
@@ -70,6 +80,10 @@ class Tweet < ActiveRecord::Base
       match_str = str.sub(/^(.*?)\sRT.*/, '\1')
       #match_str =~ ok_pattern && str !~ ng_pattern
       match_str =~ /#eat/
+    end
+
+    def expand_t_co(url)
+      Twitter.resolve(url).values.first
     end
 
     # name    : まだ解析していないTweetを解析する

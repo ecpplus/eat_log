@@ -1,17 +1,37 @@
-EatLog::Application.routes.draw do |map|
+EatLog::Application.routes.draw do
   resources :black_words
-  map.root :controller => "hot_food"
-  map.home 'home', :controller => 'user', :action => 'home'
-  map.connect 'admin/admin/:action/:id', :controller => 'admin/admin'
-  map.connect 'admin/black_word/:action/:id', :controller => 'admin/black_word'
-  map.connect 'auth/:action/:id', :controller => 'auth'
-  map.connect 'tweet/:action/:id', :controller => 'tweet'
-  map.connect 'about/:action/:id', :controller => 'about'
 
-  map.connect ':id/:month', :controller => 'user', :action => 'show'
-  map.connect ':id', :controller => 'user', :action => 'show'
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
+  root :to => "hot_food#index"
+
+  #map.home 'home', :controller => 'user', :action => 'home'
+  match 'home', :to => 'user#home', :as => 'home'
+
+  scope :module => 'admin' do
+    match 'admin/admin/:action/:id', :to => 'admin'
+    match 'admin/black_word/:action/:id', :to => 'black_word'
+  end
+  
+
+  match 'auth/:action(/:id)', :to => 'auth'
+  match 'tweet/:action(/:id)', :to => 'tweet'
+  match 'about/:action(/:id)', :to => 'about'
+
+  match ':id/:month', :to => 'user#show'
+  match ':id', :to => 'user#show'
+
+  match ':controller/:action/:id'
+  match ':controller/:action/:id.:format'
+
+  #map.connect 'admin/admin/:action/:id', :controller => 'admin/admin'
+  #map.connect 'admin/black_word/:action/:id', :controller => 'admin/black_word'
+  #map.connect 'auth/:action/:id', :controller => 'auth'
+  #map.connect 'tweet/:action/:id', :controller => 'tweet'
+  #map.connect 'about/:action/:id', :controller => 'about'
+
+  #map.connect ':id/:month', :controller => 'user', :action => 'show'
+  #map.connect ':id', :controller => 'user', :action => 'show'
+  #map.connect ':controller/:action/:id'
+  #map.connect ':controller/:action/:id.:format'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
