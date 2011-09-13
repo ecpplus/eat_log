@@ -24,8 +24,8 @@ class Tweet < ActiveRecord::Base
     # author  : chu
     def fetch_timeline
       Twitter.configure do |config|
-        config.consumer_key       = Consumer::CONSUMER_KEY
-        config.consumer_secret    = Consumer::CONSUMER_SECRET
+        config.consumer_key       = CONSUMER_KEY
+        config.consumer_secret    = CONSUMER_SECRET
         config.oauth_token        = EAT_LOG_ACCESS_TOKEN
         config.oauth_token_secret = EAT_LOG_ACCESS_TOKEN_SECRET
       end
@@ -43,8 +43,8 @@ class Tweet < ActiveRecord::Base
       timeline.each do |post|
         
         if eat?(post.text) 
-          if post.text =~ %r|http://t\.co/|
-            text = post.text
+          text = post.text
+          if text =~ %r|http://t\.co/|
             tco_urls = text.scan(%r|http://t\.co/\w+|).uniq
             original_urls = Twitter.resolve(tco_urls).values
             tco_urls.each_with_index do |tco_url, i|

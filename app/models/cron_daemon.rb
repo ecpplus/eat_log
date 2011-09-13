@@ -7,7 +7,7 @@ class CronDaemon < ActiveRecord::Base
     # comment : 
     # author  : chu
     def start
-      settings = YAML.load_file(RAILS_ROOT + '/config/cron.yml')
+      settings = YAML.load_file(Rails.root.to_s + '/config/cron.yml')
 
       BatchLock.run('cron_daemon') do
         loop do
