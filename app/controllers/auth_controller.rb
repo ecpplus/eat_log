@@ -2,19 +2,9 @@
 class AuthController < ApplicationController
 
   def index
-    oauth = Twitter::OAuth.new(Consumer::CONSUMER_KEY, Consumer::CONSUMER_SECRET)
+    oauth = Twitter::OAuth.new(CONSUMER_KEY, CONSUMER_SECRET)
     oauth.authorize_from_access(session[:access_token], session[:access_token_secret])
-    p session[:access_token]
-    p session[:access_token_secret]
-
-
     client = Twitter::Base.new(oauth)
-    #client.update('@eat_log にゃんにゃん。')
-    #p client.mentions.first.text
-    p client
-    p screen_name = client.followers.map(&:screen_name).first
-    #p client.friendship_create(screen_name)
-    
   end
 
   def oauth
@@ -32,30 +22,11 @@ class AuthController < ApplicationController
   end
   
   def oauth_callback
-    p 'callback ktkr!!'
-
     consumer = Consumer.new
     access_token = AccessToken.get(consumer, session, params)
     session[:access_token] = access_token.token
     session[:access_token_secret] = access_token.secret
 
-    #p "session[:request_token] : #{session[:request_token]}"
-    #p "session[:request_token_secret] : #{session[:request_token_secret]}"
-    #p "session[:access_token] : #{session[:access_token]}"
-    #p "session[:access_token_secret] : #{session[:access_token_secret]}"
-
-    #request_token = OAuth::RequestToken.new(
-    #  consumer,
-    #  session[:request_token],
-    #  session[:request_token_secret]
-    #)
- 
-    #access_token = request_token.get_access_token(
-    #  {},
-    #  :oauth_token => params[:oauth_token],
-    #  :oauth_verifier => params[:oauth_verifier]
-    #)
- 
     response = consumer.request(
       :get,
       '/account/verify_credentials.json',
@@ -64,7 +35,6 @@ class AuthController < ApplicationController
     case response
     when Net::HTTPSuccess
       @user_info = JSON.parse(response.body)
-      #p @user_info
       if @user_info['screen_name']
         user = User.by_credential(@user_info)
         self.current_user = user
