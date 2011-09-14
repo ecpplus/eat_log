@@ -40,6 +40,6 @@ namespace :deploy do
 end
 
 after("deploy:symlink") do
-  run "ln -s #{shared_path}/system/database.yml #{current_path}/config/database.yml"
+  run "ln -s #{shared_path}/config/database.yml #{current_path}/config/database.yml"
 end
 
