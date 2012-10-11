@@ -53,7 +53,7 @@ class AuthController < ApplicationController
       end
       redirect_to root_path
     else
-      RAILS_DEFAULT_LOGGER.error "Failed to get user info via OAuth"
+      Rails.logger.error "Failed to get user info via OAuth"
       flash[:notice] = "Authentication failed"
       redirect_to :action => :index
       return
